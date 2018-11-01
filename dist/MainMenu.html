@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Loading Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.4.2/js/all.js" integrity="sha384-wp96dIgDl5BLlOXb4VMinXPNiB32VYBSoXOoiARzSTXY+tsK8yDTYfvdTyqzdGGN" crossorigin="anonymous"></script>
+   
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <title>X-O-X Main Menu</title>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-md-center">
+        <div class="col-md-4 offset-4">
+            <h3 id="welcome" align="center">Welcome,  </h3>
+            <h6 align="Center" class="text-info">You can start the any type of X-O-X game from below. Enjoy the game :)</h6>
+        </div>
+        <hr>
+    </div>
+  <div class="row">
+      <div class="col-md-4"></div>
+    <div class="col-md-4">  
+        <a href="PlayComputer.html" class="btn btn-block btn-lg btn-primary"><i style="margin-right: 0.5em; color: white;" class="fas fa-desktop"></i>User vs Computer(Offline Mode)</a>
+
+        <a href="OfflineMode.html" class="btn btn-block btn-lg btn-primary"><i style="margin-right: 0.5em; color: white;" class="fas fa-user-friends"></i>User vs User(Offline Mode)</a>
+
+        <a href="OnlineMode.html" class="btn btn-block btn-lg btn-primary"><i style="margin-right: 0.5em; color: white;" class="fas fa-user-friends"></i>User vs User(Online Mode)</a>
+      
+        <a href="Leaderboard.html" class="btn btn-block btn-lg btn-primary"><i style="margin-right: 0.5em; color: white;" class="fas fa-list"></i>Leaderboard</a>
+
+        <a href="Login.html" id="exit" class="btn btn-block btn-lg btn-primary"><i style="margin-right: 0.5em; color: #fff;" class="fas fa-sign-out-alt"></i>Exit</a>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+</div>
+    <!-- Bootstrap 4 requires Popper.js -->
+    <script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+    <script src="scripts/flat-ui.js"></script>
+    <script src="scripts/board.js"></script>
+    <script>
+        $(function(){
+            $(document).ready(function(){
+                $('#welcome').append(sessionStorage.getItem('userName'))
+               
+                if(sessionStorage.getItem('tokenKey') === null && sessionStorage.getItem('userName') === null){
+                    window.location = 'file:///C:/Users/User/Desktop/C%23-Java-C-%C4%B0deas%20&%20Projects/tictactoe-frontend/dist/Login.html'
+                }
+            })
+
+            $('#exit').click(function(){     
+                if(sessionStorage.getItem('userName').includes('Guest')){
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'http://localhost:4812/api/users/'+activeUser.Data[0].AspUserId,
+                    })
+                    sessionStorage.removeItem('tokenKey')
+                    sessionStorage.removeItem('userName')
+                }else{
+                    sessionStorage.removeItem('tokenKey')
+                    sessionStorage.removeItem('userName')
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

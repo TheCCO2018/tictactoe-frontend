@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB"
+        crossorigin="anonymous"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <title>X-O-X Main Menu</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-md-3"><a href="#fakelink" id="reGame" class="btn btn-block btn-lg btn-primary" style="margin-top:2.5%">Restart</a></div>
+            <div class="col-md-6">
+                <h4 class="text-center" style="color: black;">Player 1 : <span id="scorePlayer1">0</span> - <span id="scorePlayer2">0</span>
+                    : Computer</h4>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 50%;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a href="MainMenu.html" class="btn btn-block btn-lg btn-primary" style="margin-top:2.5%">Main Menu</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3" align="center">
+                <h1 id="player1" style="color: red;">Player 1 : X</h1>
+                <h2 class="player1" style="color: gold"></h2>
+            </div>
+            <div class="col-md-6">
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div row="0" col="0" id="00" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="0" col="1" id="01" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="0" col="2" id="02" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div row="1" col="0" id="10" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="1" col="1" id="11" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="1" col="2" id="12" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div row="2" col="0" id="20" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="2" col="1" id="21" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="2" col="2" id="22" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" align="center">
+                <h1 id="player2">Computer : O</h1>
+                <h2 class="player2" style="color: gold"></h2>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+
+            var isTurnX = true;
+            var type = "fa-circle";
+            var progressValue = 50;
+            var isGameStarted = false;
+            var isComputer = false;
+            var gameArray = [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
+            ];
+            var movesCount = 0;
+            var isWins = false;
+
+            $(".col-md-4").click(function () {
+
+                if ($(this).attr('isclick') == '1')
+                    return;
+                isGameStarted = true;
+                var col = $(this).attr('col');
+                var row = $(this).attr('row');
+                var playerid = 0;
+
+                gameArray[row][col] = 1;
+                playerid = 1;
+                type = "fa-times";
+
+                $(this).children().append('<i class="fas ' + type + ' fa-8x"></i>');
+                $(this).attr('isclick', '1');
+                movesCount++;
+                if (movesCount >= 5) {
+                    WiningControl(row, col, 1);
+                }
+                var rowColArray = [];
+                rowColArray = PlayComputer(row, col);
+                var comrow = rowColArray[0].toString();
+                var comcol = rowColArray[1].toString();
+                var rowcol = comrow + comcol;
+                console.log("Row + Col : " + rowcol);
+                $(".col-md-4").each(function () {
+                    if ($(this).attr("id") == rowcol) {
+                        $(this).children().append('<i class="fas fa-circle fa-8x"></i>');
+                        $(this).attr('isclick', '1');
+                    }
+                });
+
+                movesCount++;
+                if (movesCount >= 5) {
+                    WiningControl(comrow, comcol, 2);
+                }
+
+            });
+
+            function PlayComputer(row, col) {
+                var counterCol = 0;
+                var counterRow = 0;
+                var counterDiag1 = 0;
+                var counterDiag2 = 0;
+                var SelectCol = -1;
+                var SelectRow = -1;
+                var rowColArray = [];
+                for (var i = 0; i < 3; i++) {
+                    if (gameArray[i][col] == 1)
+                        counterCol++;
+                    if (gameArray[row][i] == 1)
+                        counterRow++;
+                    if (gameArray[i][i] == 1)
+                        counterDiag1++;
+                    if (gameArray[i][2 - i] == 1)
+                        counterDiag2++;
+                }
+
+                var pos = Search([counterCol, counterRow, counterDiag1, counterDiag2]);
+                console.log("Counter Col : " + counterCol + "Counter Row : " + counterRow + "Counter Diag1 : " + counterDiag1 + "Counter Diag 2 : " + counterDiag2 + "POS : " + pos);
+                switch (pos) {
+                    case 0:
+                        for (var i = 0; i < 3; i++) {
+                            if (gameArray[i][col] == 0) {
+                                gameArray[i][col] = 2;
+                                SelectRow = i;
+                                SelectCol = col;
+                                break;
+                            }
+                        }
+
+                        break;
+                    case 1:
+                        for (var i = 0; i < 3; i++) {
+                            if (gameArray[row][i] == 0) {
+                                gameArray[row][i] = 2;
+                                SelectRow = row;
+                                SelectCol = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    case 2:
+                        for (var i = 0; i < 3; i++) {
+                            if (gameArray[i][i] == 0) {
+                                console.log("row : " + i + "col :" + i);
+                                gameArray[i][i] = 2;
+                                SelectRow = i;
+                                SelectCol = i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        for (var i = 0; i < 3; i++) {
+                            if (gameArray[i][2 - i] == 0) {
+                                console.log("row : " + i + "col :" + 2 - i);
+                                gameArray[i][2 - i] = 2;
+                                SelectRow = i;
+                                SelectCol = 2 - i;
+                                break;
+                            }
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+                var JustBreak = false;
+                if (SelectRow == -1) {
+                    for (var i = 0; i < 3; i++) {
+                        for (var j = 0; j < 3; j++) {
+                            if (gameArray[i][j] == 0) {
+                                SelectRow = i;
+                                SelectCol = j;
+                                gameArray[i][j] = 2;
+                                JustBreak = true;
+                                console.log("Test");
+                                break;
+                            }
+                            if (JustBreak == true) break;
+                        }
+                        if (JustBreak == true) break;
+
+
+                    }
+
+                }
+                rowColArray[0] = SelectRow;
+                rowColArray[1] = SelectCol;
+                return rowColArray;
+            }
+
+            function Search(array) {
+                var max = 0;
+                var pos = -1;
+                $.each(array, function (index, value) {
+                    if (value > max) {
+                        max = value;
+                        pos = index;
+                    }
+
+                });
+                return pos;
+            }
+
+
+            function WiningControl(row, col, player) {
+                var SumRownCol = 0;
+                var winCounterCol = 0;
+                var winCounterRow = 0;
+                var winCounterDiag = 0;
+                var isWin = false;
+                SumRownCol = parseInt(row) + parseInt(col);
+                if (SumRownCol == 3 || SumRownCol == 1) {
+                    for (var i = 0; i < 3; i++) {
+                        if (gameArray[i][col] == player) {
+                            winCounterCol++;
+                        }
+                        if (gameArray[row][i] == player) {
+                            winCounterRow++;
+                        }
+                    }
+
+                } else {
+                    for (var j = 0; j < 3; j++) {
+                        if (gameArray[j][col] == player) {
+                            winCounterCol++;
+                        }
+                        if (gameArray[row][j] == player) {
+                            winCounterRow++;
+                        }
+                        if (SumRownCol == 0 || SumRownCol == 4) {
+                            if (gameArray[j][j] == player) {
+                                winCounterDiag++;
+                            }
+                        } else {
+                            if (gameArray[j][2 - j] == player) {
+                                winCounterDiag++;
+                            }
+                        }
+
+                    }
+                }
+                if (winCounterCol == 3 || winCounterRow == 3 || winCounterDiag == 3) {
+                    Winner(player);
+                } else {
+                    if (movesCount == 9) {
+                        if (progressValue < 50) {
+                            Winner(2);
+
+                        } else {
+                            Winner(1);
+                        }
+
+
+                    }
+                }
+
+            };
+
+            function Winner(playerid) {
+                if (isWins == false) {
+                    isGameStarted = false;
+                    $(".player" + playerid).text("Winner Winner Chicken Dinner");
+                    console.log(gameArray);
+                    var score = parseInt($("#scorePlayer" + playerid).text());
+                    score++;
+                    $("#scorePlayer" + playerid).text(score.toString());
+                    $(".col-md-4").each(function () {
+                        $(this).attr("isclick", "1");
+                    });
+                    isWins = true;
+
+                }
+
+            }
+
+            $("#reGame").click(function () {
+                ReGame();
+            });
+
+            function ReGame() {
+                isWins = false;
+                isTurnX = true;
+                type = "fa-circle";
+                progressValue = 50;
+                isGameStarted = false;
+                gameArray = [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0]
+                ];
+                $("#player2").css("color", "#34495e");
+                $("#player1").css("color", "red");
+                $(".player1").text(" ");
+                $(".player2").text(" ");
+                $(".progress-bar").css('width', '50%');
+                movesCount = 0;
+                $(".col-md-4").each(function () {
+                    $(this).attr("isclick", "0");
+                });
+                $(".Box").each(function () {
+                    $(this).empty();
+                });
+
+            }
+
+            setInterval(function () {
+                if (!isGameStarted)
+                    return;
+
+                if (movesCount >= 9) {
+
+                }
+
+                if (progressValue >= 100) {
+
+                    Winner(1);
+                    return;
+                } else if (progressValue <= 0) {
+
+                    Winner(2);
+                    return;
+                }
+
+
+                if (isTurnX) {
+                    progressValue -= 10;
+
+                } else {
+                    progressValue += 10;
+                }
+
+                $(".progress-bar").css('width', progressValue + '%');
+
+            }, 1000);
+        });
+
+    </script>
+    <!-- Bootstrap 4 requires Popper.js -->
+    <script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+    <script src="dist/scripts/flat-ui.js"></script>
+    <script src="docs/assets/js/application.js"></script>
+</body>
+
+</html>

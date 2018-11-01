@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version." />
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+        //socket.on('news',function(data){
+
+        //});
+        //socket.on('UserCreatedRoom',function(room){
+        //   console.log(room); 
+        //});
+
+    </script>
+    <title>Xox io</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <a id="CreateRoom" href="#fakelink" class="btn btn-block btn-lg btn-primary" style="margin-top:2%">Start Game</a>
+                <!-- <input id="userName" type="text" value="" placeholder="User Name" class="form-control" style="display:none;" required>  -->
+            </div>
+            <div class="col-md-6">
+                <div class="progress">
+                    <div class="progress-bar" style="width: 50%;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a href="MainMenu.html" class="btn btn-block btn-lg btn-primary" style="margin-top:2%">Main Menu</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3" align="center">
+                <h1 id="player1" style="color: red;"></h1>
+                <h2 class="player1" style="color: gold"></h2>
+                <h3 id="userWait"></h3>
+            </div>
+            <div class="col-md-6">
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div row="0" col="0" id="00" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="0" col="1" id="01" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="0" col="2" id="02" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div row="1" col="0" id="10" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="1" col="1" id="11" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="1" col="2" id="12" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div row="2" col="0" id="20" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="2" col="1" id="21" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                        <div row="2" col="2" id="22" isclick="0" class="col-md-4 text-center">
+                            <div class="Box"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3"align="center">
+                <h1 id="player2" ></h1>
+                <h2 class="player2" style="color: gold"></h2>
+            </div>
+        </div> 
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)  
+                    query: 'username=' + username+"&userId="+activeUser.Data[0].AspUserId, -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+    <script src="scripts/board.js"></script>
+    <script>
+        $(function() {
+            $(document).ready(function(){
+                if(sessionStorage.getItem('tokenKey') === null && sessionStorage.getItem('userName') === null){
+                    window.location = 'file:///C:/Users/User/Desktop/C%23-Java-C-%C4%B0deas%20&%20Projects/tictactoe-frontend/dist/login.html'
+                }
+            })
+            var socket;
+            var myTurn = false;
+            var isX = false;
+            var isGameStarted = false;
+            var roomId;
+            var user;
+            var progressValue = 50;
+            var timeValue = 0;
+            var isGameFinish = false;
+            $("#CreateRoom").click(function() {
+                $("#CreateRoom").addClass('disabled')
+                $("#userWait").text("Searching for players...");
+
+                var username = sessionStorage.getItem("userName");
+                socket = io.connect('http://localhost:3000', {
+                    query: 'username=' + username +'&userId='+ activeUser.Data[0].AspUserId
+                });
+                socket.emit('join');
+
+
+                socket.on('gamestarted', function(data) {
+                    isGameStarted = true
+                    //console.log(data.roomId);
+                    roomId = data.roomId;
+                    user = data.user;
+
+                    isX = user === 1 ? true : false;
+                    $("#userWait").text("Oyun Başladı iyi Şanşlar.");
+                    if(isX) 
+                    {
+                        $("#player1").text(activeUser.Data[0].Username+": X")
+                        $("#player2").text(data.enemyName +": O")
+                    }else{
+                        $("#player2").text(data.enemyName +": X")
+                        $("#player1").text(activeUser.Data[0].Username+": O")
+                    }
+                    $("#userWait").text("");
+                });
+                socket.on('pValEm', function(data) {
+                    progressValue = data.progressValue;
+                    $(".progress-bar").css('width', progressValue + '%');
+                });
+
+                socket.on('yourTurn', function() {
+                    //console.log('yourTurn');
+                    myTurn = true;
+                });
+                socket.on('isFinish', function(data) {
+                    var winPlayerid = -1;
+
+                    console.log("Kazanan Player id : " + data.playerid);
+                    winPlayerid = data.playerid;
+                    if (winPlayerid != -1) {
+                        
+                        isGameFinish = true;
+                        console.log("user = "+user)
+                        if(data.playerid == user){
+                            $(".player1").text("Winner Winner Chicken Dinner")
+                            console.log(data.enemyId)
+                            updateUserStats(activeUser.Data[0].AspUserId, data.enemyId)
+                        }
+                        if(data.playerid != user){
+                            $(".player2").text("Winner Winner Chicken Dinner")
+                        }
+                        $(".col-md-4").each(function(){
+                            $(this).attr("isclick","1");
+                        })
+                        setTimeout(function(){
+                            window.location = "file:///C:/Users/User/Desktop/C%23-Java-C-%C4%B0deas%20&%20Projects/tictactoe-frontend/dist/OnlineMode.html"
+                        },5000)
+                    }
+                });
+
+                socket.on('enemyClicked', function(data) {
+                    var type = "fa-times";
+                    if (isX) type = "fa-circle";
+
+                    $("#" + data.row + "" + data.col).attr("isclick", "1");
+                    $("#" + data.row + "" + data.col).children().append('<i class="fas ' + type + ' fa-8x"></i>');
+                });
+            });
+
+
+            setInterval(function() {
+
+                if (myTurn && isGameStarted && !isGameFinish) {
+
+                    var type = "fa-circle";
+                    if (isX) type = "fa-times";
+
+                    if (isX) {
+                        progressValue -= 10;
+                    } else {
+                        progressValue += 10;
+                    }
+                    socket.emit('pValon', {
+                        roomId: roomId,
+                        user: user,
+                        progressValue: progressValue
+                    });
+
+                    $(".progress-bar").css('width', progressValue + '%');
+                }
+            }, 1000);
+
+
+
+            $(".col-md-4").click(function() {
+
+                if ($(this).attr("isclick") === "1") return;
+
+                var row = $(this).attr("row");
+                var col = $(this).attr("col");
+                if (!myTurn) return;
+                var type = "fa-circle";
+                if (isX) type = "fa-times";
+
+                $(this).children().append('<i class="fas ' + type + ' fa-8x"></i>');
+                socket.emit('action', {
+                    roomId: roomId,
+                    user: user,
+                    row: row,
+                    col: col
+                })
+                myTurn = false;
+                $(this).attr("isclick", "1");
+            });
+        });
+
+
+    </script>
+    <!-- Bootstrap 4 requires Popper.js -->
+    <script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+    <script src="scripts/flat-ui.js"></script>
+</body>
+
+</html>

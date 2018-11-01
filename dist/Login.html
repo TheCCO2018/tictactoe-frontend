@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Login XOX.io</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/login.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Login Page And Forms Starts -->
+    <div class="container-fluid">
+        <div class="row justify-content-md-center" >  
+            <div class="col-sm-4">
+                <div class="row align-items-center justify-content-md-center">
+                    <h1 align="center">XOX.io</h1>
+                </div>
+                <div class="row align-items-center justify-content-md-center">
+                    <p>Welcome to XOX.io</p>
+                </div>
+                <!-- Tab Items -->
+                <div class="row align-items-center justify-content-md-center">
+                    <ul class="nav nav-tabs nav-fills" id="authTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true"><i class="fa fa-unlock"></i> Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false" ><i class="fa fa-user-plus"></i> Register</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Tab Contents -->
+                <div class="row align-items-center justify-content-md-center"> 
+                    <div class="tab-content" id="authContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="form-wrapper">
+                                <form action="#" id="login" method="post" enctype="application/x-www-form-urlencoded">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Password" required="required">
+                                    </div>
+                                    <input type="submit" class="btn btn-success btn-block" id="loginAsUser" name="login" value="Play">
+                                    <div class="form-footer">
+                                        <p id="login-info"></p>
+                                    </div>
+                                    <div class="or-seperator"><b>or</b></div>
+                                    <p class="hint-text">Login as a guest player</p>
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-primary btn-block" value="Play as a Guest!" id="loginAsGuest"> 
+                                        <p align="center" class="hint-text">But don't forget when you are a guest you can't gain points to be part of leaderboard.</p>
+                                    </div>
+                                </form>
+                             </div>
+                         </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <div class="form-wrapper">
+                                <form id="sign-up" method="POST">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="sign-username" name="username" placeholder="Username" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="sign-password" name="password" placeholder="Password" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="sign-confirm-password" name="confirm-password" placeholder="Confirm Password" required="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
+                                    </div>
+                                    <input type="submit" class="btn btn-success btn-block" name="signup" value="Sign up" id="signup">
+                                    <div class="form-footer">
+                                        <p class="hint-text" id="sign-info">Fill in this form to create your account! <br>Please use at least 1-> Upper carachter, number and punctuation in your password.</p>
+                                    </div>
+                                </form>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+    </div>    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>

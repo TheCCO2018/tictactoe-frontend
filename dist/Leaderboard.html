@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>X-O-X Leaderboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <!-- Loading Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.4.2/js/all.js" integrity="sha384-wp96dIgDl5BLlOXb4VMinXPNiB32VYBSoXOoiARzSTXY+tsK8yDTYfvdTyqzdGGN" crossorigin="anonymous"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="dist/js/vendor/html5shiv.js"></script>
+    <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="OnlineMode.html" id="reGame" class="btn btn-block btn-lg btn-primary" style="margin-top:2.5%">Play Online</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="MainMenu.html" class="btn btn-block btn-lg btn-primary" style="margin-top:2.5%">Main Menu</a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <table class="table" id="rankBoard" class="display" style="text-align:center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>UserName</th>
+                            <th>TotalWins</th>
+                            <th>TotalLoses</th>
+                            <th>WinStreaks</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users">
+                
+                    </tbody>
+                    <tfoot style="border-top: 2px black solid" id="activeUser">
+                
+                    </tfoot>
+                </table>
+                <div class="col-md-12 text-center">
+                    <ul class="pagination pagination-lg pager" id="myPager"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    <script src="scripts/board.js"></script>
+</body>
+</html>

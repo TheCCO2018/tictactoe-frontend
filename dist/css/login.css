@@ -1,0 +1,94 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+.form-wrapper {
+  width: 280px;
+  padding: 20px;
+  left: auto;
+  right: 0;
+  font-size: 14px;
+}
+.form-wrapper a {		
+  color: #33cabb;
+  padding: 0 !important;
+}
+.form-wrapper a:hover{
+  text-decoration: underline;
+}
+.form-wrapper .hint-text {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+.form-wrapper .social-btn .btn, .form-wrapper .social-btn .btn:hover {
+  color: #fff;
+  margin: 0;
+  padding: 0 !important;
+  font-size: 13px;
+  border: none;
+  transition: all 0.4s;
+  text-align: center;
+  line-height: 34px;
+  width: 47%;
+  text-decoration: none;
+  }	
+.social-btn .btn-primary {
+  background: #507cc0;
+}
+.social-btn .btn-primary:hover {
+  background: #4676bd;
+}
+.social-btn .btn-info {
+  background: #64ccf1;
+}
+.social-btn .btn-info:hover {
+  background: #4ec7ef;
+}
+.social-btn .btn i {
+  margin-right: 5px;
+  font-size: 16px;
+  position: relative;
+  top: 2px;
+}
+.form-wrapper .form-footer {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 13px;
+}
+.form-wrapper .form-footer a:hover{
+  text-decoration: underline;
+}
+.form-wrapper .checkbox-inline input {
+  margin-top: 3px;
+}
+.or-seperator {
+      margin-top: 32px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  }
+  .or-seperator b {
+  color: #666;
+      padding: 0 8px;
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+  text-align: center;
+  line-height: 26px;
+  background: #fff;
+  display: inline-block;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  position: relative;
+  top: -15px;
+  z-index: 1;
+  }
+  .checkbox-inline {
+  font-size: 13px;
+}
+.nav-link a:active{
+    color: rgb(40, 167, 69)
+}
